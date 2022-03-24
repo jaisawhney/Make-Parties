@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     Event.init({
         title: DataTypes.STRING,
         desc: DataTypes.TEXT,
-        imgUrl: DataTypes.STRING
+        imgUrl: DataTypes.STRING,
+        takesPlaceOn: DataTypes.DATEONLY
     }, {
         sequelize,
         modelName: 'Event',
