@@ -1,32 +1,36 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser');
+
 const {engine} = require('express-handlebars');
 const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 
+const models = require('./db/models');
+
 app.engine('handlebars', engine({defaultLayout: 'main', handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', 'handlebars');
+app.use(bodyParser.urlencoded({extended: true}));
 
-const events = [
-    {
-        title: "I am your first event",
-        desc: "A great event that is super fun to look at and good",
-        imgUrl: "http://via.placeholder.com/600"
-    },
-    {
-        title: "I am your second event",
-        desc: "A great event that is super fun to look at and good",
-        imgUrl: "http://via.placeholder.com/600"
-    },
-    {
-        title: "I am your third event",
-        desc: "A great event that is super fun to look at and good",
-        imgUrl: "http://via.placeholder.com/600"
-    }
-]
-
+// Index
 app.get('/', (req, res) => {
-    res.render('events-index', {events: events});
+    models.Event.findAll({order: [['createdAt', 'DESC']]}).then(events => {
+        res.render('events-index', {events: events});
+    })
+});
+
+// New
+app.get('/events/new', (req, res) => {
+    res.render('events-new', {});
+});
+
+// Create
+app.post('/events', (req, res) => {
+    models.Event.create(req.body).then(() => {
+        res.redirect(`/`);
+    }).catch((err) => {
+        console.log(err)
+    });
 });
 
 const port = process.env.PORT || 3000;
