@@ -1,6 +1,19 @@
 <h1>Events</h1>
-{{#each events}}
-    <h2>{{this.title}}</h2>
-    <img class="img-fluid" src="{{this.imgUrl}}" alt="Card image cap">
-    <p>{{this.description}}</p>
-{{/each}}
+<div class="row">
+
+    {{#each events}}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{this.imgUrl}}" class="card-img-top" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text">{{this.desc}}</p>
+                    <div class="text-end">
+                        <a href="#" class="btn btn-info">Rsvp</a>
+                        <a href="#" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>
