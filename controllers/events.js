@@ -23,7 +23,7 @@ module.exports = function (app, models) {
 
     //Show
     app.get('/events/:id', (req, res) => {
-        models.Event.findByPk(req.params.id).then((event) => {
+        models.Event.findByPk(req.params.id, { include: [{ model: models.Rsvp }] }).then(event => {
             res.render('events-show', {event: event})
         }).catch((err) => {
             console.error(err);
