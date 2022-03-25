@@ -50,7 +50,7 @@ app.get('/events/:id/edit', (req, res) => {
     models.Event.findByPk(req.params.id).then((event) => {
         res.render('events-edit', {event: event});
     }).catch((err) => {
-        console.log(err.message);
+        console.error(err);
     })
 });
 
@@ -60,12 +60,22 @@ app.put('/events/:id', (req, res) => {
         event.update(req.body).then(() => {
             res.redirect(`/events/${req.params.id}`);
         }).catch((err) => {
-            console.log(err);
+            console.error(err);
         });
     }).catch((err) => {
-        console.log(err);
+        console.error(err);
     });
 });
+
+// Delete
+app.delete('/events/:id', (req, res) => {
+    models.Event.findByPk(req.params.id).then(event => {
+        event.destroy();
+        res.redirect(`/`);
+    }).catch((err) => {
+        console.error(err);
+    });
+})
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

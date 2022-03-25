@@ -8,10 +8,13 @@
                 <div class="card-text">
                     <form action="/events/{{event.id}}?_method=PUT" method="post">
                         {{> events-form }}
-                        <div class="text-right">
-                            <a href="/events/{{event.id}}" class='btn btn-secondary mt-2'>Cancel</a>
-                            <button type="submit" class="btn btn-primary mt-2" name="button">Update</button>
+                        <div class="text-end mt-2">
+                            <a href="/events/{{event.id}}" class='text-muted mx-2 align-middle'>Cancel</a>
+                            <button type="submit" class="btn btn-primary align-middle" name="button">Update</button>
                         </div>
+                    </form>
+                    <form action="/events/{{event.id}}?_method=DELETE" method="POST">
+                        <button type="submit" class='btn btn-danger'>Delete</button>
                     </form>
                 </div>
             </div>
