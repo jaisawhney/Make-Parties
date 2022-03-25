@@ -1,7 +1,8 @@
 <div class="row mt-4">
     <div class="col-lg-6">
         <img class="img-fluid w-100 rounded mb-3" src="{{event.imgUrl}}" alt="Card image cap">
-        <small class="text-muted">{{event.takesPlaceOn}}</small>
+        <small class="text-muted d-block">Takes place on: {{event.takesPlaceOnFormatted}}</small>
+        <small class="text-muted d-block">Created on: {{event.createdAtFormatted}}</small>
         <h3>{{event.title}}</h3>
         <div class="lead">{{event.desc}}</div>
         <div class="text-end">

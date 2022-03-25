@@ -1,4 +1,5 @@
-// Index
+const moment = require("moment");
+
 module.exports = function (app, models) {
     // Index
     app.get('/', (req, res) => {
@@ -23,7 +24,10 @@ module.exports = function (app, models) {
 
     //Show
     app.get('/events/:id', (req, res) => {
-        models.Event.findByPk(req.params.id, { include: [{ model: models.Rsvp }] }).then(event => {
+        models.Event.findByPk(req.params.id, {include: [{model: models.Rsvp}]}).then(event => {
+            event.takesPlaceOnFormatted = moment(event.takesPlaceOn).format('MMMM Do YYYY, h:mm a');
+
+            event.createdAtFormatted = moment(event.createdAt).format('MMMM Do YYYY, h:mm a');
             res.render('events-show', {event: event})
         }).catch((err) => {
             console.error(err);
