@@ -1,4 +1,5 @@
 const express = require('express')
+const methodOverride = require('method-override')
 const app = express()
 const bodyParser = require('body-parser');
 
@@ -11,6 +12,7 @@ const models = require('./db/models');
 app.engine('handlebars', engine({defaultLayout: 'main', handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'))
 
 // Index
 app.get('/', (req, res) => {
@@ -40,6 +42,29 @@ app.get('/events/:id', (req, res) => {
     }).catch((err) => {
         console.error(err);
     })
+});
+
+
+// Edit
+app.get('/events/:id/edit', (req, res) => {
+    models.Event.findByPk(req.params.id).then((event) => {
+        res.render('events-edit', {event: event});
+    }).catch((err) => {
+        console.log(err.message);
+    })
+});
+
+// Update
+app.put('/events/:id', (req, res) => {
+    models.Event.findByPk(req.params.id).then(event => {
+        event.update(req.body).then(() => {
+            res.redirect(`/events/${req.params.id}`);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }).catch((err) => {
+        console.log(err);
+    });
 });
 
 const port = process.env.PORT || 3000;

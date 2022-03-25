@@ -1,18 +1,7 @@
-<form method="POST" action="/events">
-    <fieldset>
-        <legend>New Event</legend>
-        <label for="title" class="form-label mt-2">Title</label>
-        <input type="text" name="title" id="title" class="form-control" required/>
-
-        <label for="desc" class="form-label mt-2">Movie Title</label>
-        <input type="text" name="desc" id="desc" class="form-control" required/>
-
-        <label for="imgUrl" class="form-label mt-2">Image URL</label>
-        <input type="text" name="imgUrl" id="imgUrl" class="form-control" required/>
-
-        <label for="takesPlaceOn" class="form-label mt-2">Date</label>
-        <input type="date" name="takesPlaceOn" id="takesPlaceOn" class="form-control" required/>
-
-        <button type="submit" class="btn btn-sm btn-secondary mt-2">Save Event</button>
-    </fieldset>
+<form action="/events" method="post">
+    {{> events-form }}
+    <div class="text-right">
+        <a href="/" class='btn btn-secondary mt-2'>Cancel</a>
+        <button type="submit" class="btn btn-primary mt-2" name="button">Save</button>
+    </div>
 </form>
