@@ -5,7 +5,7 @@ module.exports = function (app, models) {
     app.get('/', (req, res) => {
         models.Event.findAll({order: [['createdAt', 'DESC']]}).then(events => {
             res.render('events-index', {events: events});
-        })
+        });
     });
 
     // New
@@ -45,16 +45,14 @@ module.exports = function (app, models) {
     });
 
     // Update
-    app.put('/events/:id', (req, res) => {
-        models.Event.findByPk(req.params.id).then(event => {
-            event.update(req.body).then(() => {
-                res.redirect(`/events/${req.params.id}`);
-            }).catch((err) => {
-                console.error(err);
-            });
-        }).catch((err) => {
+    app.put('/events/:id', async (req, res) => {
+        try {
+            const event = await models.Event.findByPk(req.params.id);
+            event.update(req.body);
+            res.redirect(`/events/${req.params.id}`);
+        } catch (err) {
             console.error(err);
-        });
+        }
     });
 
     // Delete
