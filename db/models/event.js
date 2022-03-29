@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             Event.hasMany(models.Rsvp, {
                 foreignKey: 'EventId'
             });
+            Event.belongsTo(models.User);
         }
     }
 

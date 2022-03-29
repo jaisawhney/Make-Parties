@@ -13,10 +13,12 @@
                 <div class="card-body">
                     <h5 class="card-title">{{this.title}}</h5>
                     <p class="card-text">{{this.desc}}</p>
-                    <div class="text-end">
-                        <a href="/events/{{this.id}}/rsvps/new" class="btn btn-info">Rsvp</a>
-                        <a href="/events/{{this.id}}" class="btn btn-primary">View</a>
-                    </div>
+                    {{#ifeq this.UserId ../currentUser.id}}
+                        <div class="text-end">
+                            <a href="/events/{{this.id}}/rsvps/new" class="btn btn-info">Rsvp</a>
+                            <a href="/events/{{this.id}}" class="btn btn-primary">View</a>
+                        </div>
+                    {{/ifeq}}
                 </div>
             </div>
         </div>
