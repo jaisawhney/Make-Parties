@@ -9,6 +9,7 @@ module.exports = (app, models) => {
     // Create
     app.post('/events/:eventId/rsvps', (req, res) => {
         req.body.EventId = req.params.eventId;
+        req.body.UserId = res.locals.currentUser.id;
         models.Rsvp.create(req.body).then(() => {
             res.redirect(`/events/${req.params.eventId}`);
         }).catch((err) => {
@@ -31,7 +32,7 @@ module.exports = (app, models) => {
             rsvp.destroy();
             res.redirect(`/events/${req.params.eventId}`);
         }).catch((err) => {
-            console.log(err);
+            console.error(err);
         });
     });
 }

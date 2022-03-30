@@ -15,8 +15,8 @@
                     <p class="card-text">{{this.desc}}</p>
                     {{#ifeq this.UserId ../currentUser.id}}
                         <div class="text-end">
-                            <a href="/events/{{this.id}}/rsvps/new" class="btn btn-info">Rsvp</a>
-                            <a href="/events/{{this.id}}" class="btn btn-primary">View</a>
+                            <a href="/events/{{../this.id}}/rsvps/new" class="btn btn-info">Rsvp</a>
+                            <a href="/events/{{../this.id}}" class="btn btn-primary">View</a>
                         </div>
                     {{/ifeq}}
                 </div>
