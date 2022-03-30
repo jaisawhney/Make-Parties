@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             User.hasMany(models.Event);
+            User.hasMany(models.Rsvp);
         }
     }
 

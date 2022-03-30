@@ -10,6 +10,13 @@
     <body>
         {{> navbar }}
         <div class="container">
+            {{#if sessionFlash}}
+                <div class="alert alert-{{sessionFlash.type}} alert-dismissible fade show mt-4" role="alert">
+                    {{sessionFlash.message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {{/if}}
+
             {{{body}}}
             {{> footer }}
         </div>
