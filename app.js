@@ -1,15 +1,14 @@
 const express = require('express')
 const session = require('express-session')
-
 const methodOverride = require('method-override')
 const app = express()
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 const {engine} = require('express-handlebars');
-const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const Handlebars = require('handlebars')
 
 const models = require('./db/models');
 app.engine('handlebars', engine({
@@ -35,6 +34,7 @@ app.use(session({
     cookie: {expires: expiryDate},
     resave: false
 }));
+
 app.use((req, res, next) => {
     const token = req.cookies.mpJWT;
 
@@ -51,6 +51,7 @@ app.use((req, res, next) => {
         next();
     }
 });
+
 app.use((req, res, next) => {
     if (req.user) {
         models.User.findByPk(req.user.id).then(currentUser => {
@@ -63,6 +64,7 @@ app.use((req, res, next) => {
         next();
     }
 });
+
 app.use((req, res, next) => {
     res.locals.sessionFlash = req.session.sessionFlash;
     delete req.session.sessionFlash;
