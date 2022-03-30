@@ -5,14 +5,18 @@
         <small class="text-muted d-block">Created on: {{event.createdAtFormatted}}</small>
         <h3>{{event.title}}</h3>
         <div class="lead">{{event.desc}}</div>
-        <div class="text-end">
-            <a href="/events/{{event.id}}/edit">Edit</a>
-        </div>
+        {{#ifeq event.UserId currentUser.id}}
+            <div class="text-end">
+                <a href="/events/{{event.id}}/edit">Edit</a>
+            </div>
+        {{/ifeq}}
     </div>
     <div class="col-lg-4 offset-lg-1">
         <div class="d-flex justify-content-between">
             <b>RSVPs ({{event.Rsvps.length}})</b>
-            <a href="/events/{{event.id}}/rsvps/new" class="btn btn-primary btn-sm">RSVP</a>
+            {{#if currentUser}}
+                <a href="/events/{{event.id}}/rsvps/new" class="btn btn-primary btn-sm">RSVP</a>
+            {{/if}}
         </div>
         <div class="list-group mt-4">
             {{#each event.Rsvps}}
@@ -20,11 +24,15 @@
                     <div class="float-start">
                         {{this.name}}
                     </div>
-                    <div class="float-end">
-                        <form class="form-inline" action="/events/{{../event.id}}/rsvps/{{this.id}}?_method=DELETE" method="post">
-                            <button type="submit" class="btn btn-link btn-sm">Remove</button>
-                        </form>
-                    </div>
+                    {{#ifeq this.UserId ../currentUser.id}}
+                        <div class="float-end">
+                            <form class="form-inline"
+                                  action="/events/{{../../event.id}}/rsvps/{{../this.id}}?_method=DELETE"
+                                  method="post">
+                                <button type="submit" class="btn btn-link btn-sm">Remove</button>
+                            </form>
+                        </div>
+                    {{/ifeq}}
                 </div>
             {{/each}}
         </div>

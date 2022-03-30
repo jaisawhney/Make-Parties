@@ -3,11 +3,11 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         return queryInterface.addColumn(
-            'Rsvps', // name of source model
-            'EventId', // name of key we are adding
+            'Rsvps',
+            'EventId',
             {
                 type: Sequelize.INTEGER,
-                references: { //Required field
+                references: {
                     model: 'Events',
                     key: 'id'
                 },
